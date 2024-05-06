@@ -1,3 +1,6 @@
 #PACKAGES
 react-router-dom : used to route pages to App.jsx
 react-icons : gives you different icons
+
+
+#we will bw creating rules in the mongoose in user.module.js called schema
