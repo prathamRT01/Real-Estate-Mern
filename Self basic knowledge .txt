@@ -1,0 +1,3 @@
+#PACKAGES
+react-router-dom : used to route pages to App.jsx
+react-icons : gives you different icons
