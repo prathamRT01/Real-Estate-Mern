@@ -19,9 +19,13 @@ export default function OAuth() {
                 headers:{
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({name: result.user.displayName, email: result.user.email , photo: result.user.photoURL}),
+                body: JSON.stringify({
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    photo: result.user.photoURL,
+                  }),
             })
-            // console.log(res);
+            console.log(res);
         const data = await res.json();
         // console.log(data);
         dispatch(signInSuccess(data));
