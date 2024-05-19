@@ -230,7 +230,7 @@ const handleShowListing = async () => {
             <p >{listing.name}</p>
 
           </Link>
-          <div className="flex flex-col ietm-center">
+          <div className="flex flex-col item-center justify-center">
             <button className="text-red-700 uppercase">Delete</button>
             <button className="text-green-700 uppercase">Edit</button>
           </div>
