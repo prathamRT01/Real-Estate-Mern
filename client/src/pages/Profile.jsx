@@ -20,7 +20,7 @@ import {
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import {Link} from 'react-router-dom';
-import { set } from "mongoose";
+// import { set } from "mongoose";
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -138,6 +138,22 @@ const handleShowListing = async () => {
   }
 }
 
+const handleListingDelete = async (listingID) => {
+  try {
+    const  res = await fetch(`/api/listing/delete/${listingID}`,{
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    if(data.success === false){
+      console.log(data.message);
+      return;
+    }
+    setUserListings((prev) => prev.filter((listing) => listing._id !== listingID));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -222,7 +238,7 @@ const handleShowListing = async () => {
       <div className="flex flex-col gap-4">
         <h1 className="text-center mt-7 text-2xl font-semibold">Your Listings</h1>
       {userListings.map((listing) => (
-        <div key={listing._id} className="border rounded-lg p-3 flex justify-between item-center gap-4k">
+        <div key={listing._id} className="border rounded-lg p-3 flex justify-between item-center gap-4">
           <Link to={`/listing/${listing._id}`}>
             <img src={listing.imageUrls[0]} alt=" listing cover"  className="h-16 w-18 object-contain"/>
           </Link>
@@ -230,8 +246,12 @@ const handleShowListing = async () => {
             <p >{listing.name}</p>
 
           </Link>
-          <div className="flex flex-col item-center justify-center">
-            <button className="text-red-700 uppercase">Delete</button>
+          <div className="flex flex-col item-center justify-center
+          
+          
+          
+          ">
+            <button onClick={()=>handleListingDelete(listing._id)} className="text-red-700 uppercase">Delete</button>
             <button className="text-green-700 uppercase">Edit</button>
           </div>
         </div>
