@@ -1,5 +1,7 @@
 import Listing from "../models/listing.model.js";
 import { errorHandler } from "../utils/error.js";
+import mongoose from 'mongoose';
+
 
 export const createListing = async (req, res, next) => {
   try {
@@ -44,6 +46,21 @@ export const updateListing = async (req, res, next) => {
         { new: true }
       );
       res.status(200).json(updatedListing);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  export const getListing = async (req, res, next) => {
+    try {
+    const listingId = new mongoose.Types.ObjectId(req.params.id);
+    const listing = await Listing.findById(listingId);
+    // const listing = await Listing.findById(req.params.id);
+
+      if (!listing) {
+        return next(errorHandler(404, 'Listing not found!'));
+      }
+      res.status(200).json(listing);
     } catch (error) {
       next(error);
     }
